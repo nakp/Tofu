@@ -75,6 +75,7 @@ class Keychain {
             kSecClass: kSecClassGenericPassword,
             kSecReturnPersistentRef: kCFBooleanTrue,
             kSecMatchLimit: kSecMatchLimitAll,
+            kSecAttrSynchronizable: kSecAttrSynchronizableAny,
         ]
         var result: AnyObject?
         let code = SecItemCopyMatching(query as CFDictionary, &result)
@@ -90,6 +91,7 @@ class Keychain {
             kSecValueData: archivedDataWithAccount(account) as AnyObject,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlocked,
             kSecReturnPersistentRef: true as AnyObject,
+            kSecAttrSynchronizable: kCFBooleanTrue,
         ]
         var result: AnyObject?
         guard SecItemAdd(query as CFDictionary, &result) == errSecSuccess else { return false }
